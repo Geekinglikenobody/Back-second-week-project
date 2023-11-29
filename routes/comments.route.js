@@ -1,12 +1,11 @@
-const {Router} = require('express')
+const { Router } = require("express");
 const authMiddleware = require("../middleware/auth.middleware");
-const {commentsController} = require("../controllers/comments.controller") 
+const { commentsController } = require("../controllers/comments.controller");
 
-const router = Router()
+const router = Router();
 
-router.delete('/comments/:id', commentsController.deleteComments)
-router.post('/comments',  commentsController.addComments)
-router.get('/comments', commentsController.getComments)
+router.delete("/comments/:id", commentsController.deleteComments);
+router.post("/comments", authMiddleware, commentsController.addComments);
+router.get("/comments/:id", commentsController.getComments);
 
-
-module.exports = router
+module.exports = router;

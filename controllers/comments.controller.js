@@ -1,4 +1,4 @@
-const Comments = require("../models/Comments.molel");
+const Comments = require("../models/Comment.molel");
 
 module.exports.commentsController = {
   deleteComments: async (req, res) => {
@@ -11,26 +11,28 @@ module.exports.commentsController = {
   },
 
   addComments: async (req, res) => {
-    const { text, userId, propertyId } = req.body;
+    const { text, propertyId } = req.body;
     try {
-        const comments = await Comments.create({
-            text,
-            userId,
-            propertyId
-        })
+      const comments = await Comments.create({
+        text,
+        userId: req.user.id,
+        propertyId,
+      });
 
-        const newComment = await Comments.findById(comments._id).populate('userId')
-        res.json(newComment)
+      const newComment = await Comments.findById(comments._id).populate(
+        "userId"
+      );
+      res.json(newComment);
     } catch (e) {
-        return res.status(401).json(e.message)
+      return res.status(401).json(e.message);
     }
   },
-  getComments: async (req,res) => {
+  getComments: async (req, res) => {
     try {
-        const comments = await Comments.find({propertyId}).populate('userId')
-        res.json(comments)
+      const comments = await Comments.find({ propertyId: req.params.id}).populate("userId");
+      res.json(comments);
     } catch (e) {
-        return res.status(401).json(e.message)
+      return res.status(401).json(e.message);
     }
-  }
+  },
 };
