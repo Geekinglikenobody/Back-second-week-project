@@ -26,5 +26,33 @@ module.exports.propertyController = {
         } catch (error) {
             return res.status(401).json(error.message)
         }
+    },
+    filterProperties: async(req,res) => {
+        try {
+            const {typeProperty,rooms,minPrice,maxPrice} = req.body
+            const parsedMinPrice = parseFloat(minPrice);
+            const parsedMaxPrice = parseFloat(maxPrice);
+            const filterConditions = {
+                typeProperty,
+                rooms,
+                price:{$gte: parsedMinPrice, $lte: parsedMaxPrice }
+            }
+            const data = await Property.find(filterConditions)
+            console.log(data);
+            return res.json(data)
+        } catch (error) {
+            return res.status(401).json(error.message)
+        }
+    },
+    deleteProperties: async(req,res) => {
+        try {
+            await Property.deleteMany()
+            return res.json("Удалено")
+        } catch (error) {
+            return res.status(401).json(error.message)
+        }
     }
+    
 }
+
+// 1516
