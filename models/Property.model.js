@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 
 const propertySchema = mongoose.Schema({
     img: [String],
+    desc: String,
     rooms: String,
     quadrature: Number,
     floor: String,
