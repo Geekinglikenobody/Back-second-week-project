@@ -2,10 +2,11 @@ const Property = require("../models/Property.model")
 
 module.exports.propertyController = {
     createProperty: async(req,res) => {
-        const {img,rooms,quadrature,floor,address,price,typeSell,typeProperty} = req.body
+        const {img,desc,rooms,quadrature,floor,address,price,typeSell,typeProperty} = req.body
         try {
             const property = await Property.create({
                 img,
+                desc,
                 rooms,
                 quadrature,
                 floor,
@@ -30,12 +31,13 @@ module.exports.propertyController = {
     filterProperties: async(req,res) => {
         try {
             const {typeProperty,rooms,minPrice,maxPrice} = req.body
-            const parsedMinPrice = parseFloat(minPrice);
-            const parsedMaxPrice = parseFloat(maxPrice);
+            // const parsedMinPrice = parseFloat(minPrice);
+            // const parsedMaxPrice = parseFloat(maxPrice);
+            console.log(minPrice, maxPrice);
             const filterConditions = {
                 typeProperty,
                 rooms,
-                price:{$gte: parsedMinPrice, $lte: parsedMaxPrice }
+                price:{$gte: minPrice, $lte: maxPrice }
             }
             const data = await Property.find(filterConditions)
             console.log(data);
