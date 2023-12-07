@@ -4,7 +4,7 @@ const imageMiddleware = require("../middleware/img.middleware")
 const { propertyController } = require("../controllers/properties.controller")
 const router = Router()
 
-router.post("/property", propertyController.createProperty)
+router.post("/property", imageMiddleware.array("img"), propertyController.createProperty)
 router.get("/property", propertyController.getProperties)
 router.delete("/property", propertyController.deleteProperties)
 router.post("/property/filter", propertyController.filterProperties)
