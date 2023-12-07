@@ -44,7 +44,7 @@ socketIO.on("connection", (socket) => { // я хз как но заработа�
 // routes
 app.use(require("./routes/users.route"))
 app.use(require("./routes/comments.route"))
-app.use(require("./routes/properties.controller"))
+app.use(require("./routes/properties.route"))
 //
 
 mongoose.connect("mongodb+srv://mitkorol90:mitkorol90@cluster0.zpgt7p8.mongodb.net/Project-second-week")

@@ -2,10 +2,12 @@ const Property = require("../models/Property.model")
 
 module.exports.propertyController = {
     createProperty: async(req,res) => {
-        const {img,desc,rooms,quadrature,floor,address,price,typeSell,typeProperty} = req.body
+        const {desc,rooms,quadrature,floor,address,price,typeSell,typeProperty} = req.body
+
+        const images = req.files && req.files.map(item => item.path)
         try {
             const property = await Property.create({
-                img,
+                img : images,
                 desc,
                 rooms,
                 quadrature,
