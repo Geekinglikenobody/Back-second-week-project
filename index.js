@@ -12,6 +12,7 @@ app.use(express.json())
 app.use(cors())
 app.use("/images", express.static(path.resolve(__dirname, "images")))
 
+
 const socketIO = require("socket.io")(http, {
     cors : {
         origin: "http://localhost:5173"
@@ -45,6 +46,7 @@ socketIO.on("connection", (socket) => {
 app.use(require("./routes/users.route"))
 app.use(require("./routes/comments.route"))
 app.use(require("./routes/properties.route"))
+app.use(require('./routes/complains.route'))
 app.use(require("./routes/favorite.route"))
 //
 
