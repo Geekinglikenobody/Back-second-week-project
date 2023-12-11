@@ -26,8 +26,8 @@ app.get("/api", (req,res) => {
 
 const users = []
 
-socketIO.on("connection", (socket) => { // я хз как но заработало и он почему каждый раз новый айдишник генит
-    console.log(`${socket.id} user connected`); // Достает айди юзера
+socketIO.on("connection", (socket) => { 
+    console.log(`${socket.id} user connected`); 
     socket.on("message", (data) => {
         socketIO.emit("response", data)
         console.log("Message",data);
@@ -45,6 +45,7 @@ socketIO.on("connection", (socket) => { // я хз как но заработа�
 app.use(require("./routes/users.route"))
 app.use(require("./routes/comments.route"))
 app.use(require("./routes/properties.route"))
+app.use(require("./routes/favorite.route"))
 //
 
 mongoose.connect("mongodb+srv://mitkorol90:mitkorol90@cluster0.zpgt7p8.mongodb.net/Project-second-week")

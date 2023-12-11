@@ -3,8 +3,8 @@ const Comments = require("../models/Comment.molel");
 module.exports.commentsController = {
   deleteComments: async (req, res) => {
     try {
-      await Comments.findByIdAndDelete(req.params.id);
-      return res.json("Удален");
+      const data = await Comments.findByIdAndDelete(req.params.id);
+      return res.json(data);
     } catch (e) {
       return res.status(400).json(e.message);
     }
@@ -30,7 +30,7 @@ module.exports.commentsController = {
   getComments: async (req, res) => {
     try {
       const comments = await Comments.find({ propertyId: req.params.id}).populate("userId");
-      res.json(comments);
+      return res.json(comments);
     } catch (e) {
       return res.status(401).json(e.message);
     }
