@@ -1,7 +1,7 @@
 const User = require("../models/User.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const Favorite = require("../models/Favorite.model")
 module.exports.userController = {
   createUser: async (req, res) => {
     try {
@@ -18,15 +18,21 @@ module.exports.userController = {
   },
 
   registerUser: async (req, res) => {
-    console.log(req.files);
-    const { login, password } = req.body;
-    const hash = await bcrypt.hash(password, Number(process.env.BCRYPT_ROUNDS));
-    const users = await User.create({
-      login,
-      avatar: req.file.path,
-      password: hash,
-    });
-    return res.json(users);
+    try {
+      const { login, password } = req.body;
+      const hash = await bcrypt.hash(password, Number(process.env.BCRYPT_ROUNDS));
+      const users = await User.create({
+        login,
+        avatar: req.file.path,
+        password: hash,
+      });
+      const favorite = await Favorite.create({user: users._id})
+      console.log(favorite);
+      console.log(users);
+      return res.json(users);
+    } catch (error) {
+      return res.json(error.message)
+    }
   },
 
   loginUser: async (req, res) => {
