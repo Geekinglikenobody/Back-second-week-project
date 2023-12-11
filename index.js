@@ -12,6 +12,7 @@ app.use(express.json())
 app.use(cors())
 app.use("/images", express.static(path.resolve(__dirname, "images")))
 
+
 const socketIO = require("socket.io")(http, {
     cors : {
         origin: "http://localhost:5173"
@@ -45,6 +46,7 @@ socketIO.on("connection", (socket) => { // я хз как но заработа�
 app.use(require("./routes/users.route"))
 app.use(require("./routes/comments.route"))
 app.use(require("./routes/properties.route"))
+app.use(require('./routes/complains.route'))
 //
 
 mongoose.connect("mongodb+srv://mitkorol90:mitkorol90@cluster0.zpgt7p8.mongodb.net/Project-second-week")
